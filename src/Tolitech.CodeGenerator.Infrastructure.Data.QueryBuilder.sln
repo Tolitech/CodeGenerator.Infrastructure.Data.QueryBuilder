@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder", "Infrastructure.Data.QueryBuilder\Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.csproj", "{DBF1AFAC-E344-45E1-8759-8AD323D0306B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests", "Infrastructure.Data.QueryBuilder.Tests\Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests.csproj", "{6803E6C2-F869-437A-B137-71640E8049EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBF1AFAC-E344-45E1-8759-8AD323D0306B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF1AFAC-E344-45E1-8759-8AD323D0306B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF1AFAC-E344-45E1-8759-8AD323D0306B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF1AFAC-E344-45E1-8759-8AD323D0306B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6803E6C2-F869-437A-B137-71640E8049EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6803E6C2-F869-437A-B137-71640E8049EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6803E6C2-F869-437A-B137-71640E8049EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6803E6C2-F869-437A-B137-71640E8049EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {957D54CF-E0FF-4DA6-8DF6-4F47BA5478BE}
+	EndGlobalSection
+EndGlobal
