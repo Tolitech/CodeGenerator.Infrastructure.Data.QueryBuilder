@@ -7,6 +7,16 @@ Tolitech Code Generator Tool: [http://www.tolitech.com.br](https://www.tolitech.
 
 Examples:
 ```
+SqlBuilderConfiguration.UseSqlServer();
+```
+
+```
+SqlBuilderConfiguration.AddQueryBuilder("SqlServer");
+SqlBuilderConfiguration.AddQueryBuilder("PostgreSql");
+SqlBuilderConfiguration.AddQueryBuilder("MySql");
+```
+
+```
 var person = new PersonEntity()
 {
     PersonId = 1,
@@ -14,7 +24,7 @@ var person = new PersonEntity()
     Age = 18
 };
 
-string sql = new SqlServer.SqlBuilder()
+string sql = new SqlBuilder()
     .Insert("dbo", "Person")
     .AddColumns(person)
     .Build();
@@ -29,7 +39,7 @@ var person = new PersonEntity()
     Age = 18
 };
 
-string sql = new SqlServer.SqlBuilder()
+string sql = new SqlBuilder()
     .Insert("Person")
     .AddColumns(person)
     .Identity("PersonId")
@@ -46,7 +56,7 @@ var person = new PersonEntity()
     Age = 18
 };
 
-string sql = new SqlServer.SqlBuilder()
+string sql = new SqlBuilder()
     .Update("dbo", "Person")
     .AddColumns(person)
     .RemoveColumn(nameof(person.PersonId))
@@ -58,7 +68,7 @@ string expected = "update [dbo].[Person] set [Name] = @Name, [Age] = @Age where 
 ```
 
 ```
-string sql = new SqlServer.SqlBuilder()
+string sql = new SqlBuilder()
     .Delete("dbo", "Person")
     .Where()
     .AddColumn("PersonId")
@@ -69,7 +79,7 @@ string expected = "delete from [dbo].[Person] where [PersonId] = @PersonId and [
 ```
 
 ```
-string sql = new SqlServer.SqlBuilder()
+string sql = new SqlBuilder()
     .Select("dbo", "Person")
     .AddColumns("PersonId", "Name")
     .Where()
