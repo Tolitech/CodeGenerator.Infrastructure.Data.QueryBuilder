@@ -1,11 +1,17 @@
 ﻿using System;
 using Xunit;
 using Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests.Domain.Entities;
+using Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests.SqlServer;
 
 namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
 {
     public class SqlBuilderTest
     {
+        public SqlBuilderTest()
+        {
+            SqlBuilderConfiguration.UseSqlServer();
+        }
+
         [Fact(DisplayName = "SqlBuilder - Insert - Valid")]
         public void SqlBuilder_Insert_Valid()
         {
@@ -16,7 +22,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
                 Age = 18
             };
 
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Insert("dbo", "Person")
                 .AddColumns(person)
                 .Build();
@@ -36,7 +42,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
                 Age = 18
             };
 
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Insert("Person")
                 .AddColumns(person)
                 .Identity("PersonId")
@@ -57,7 +63,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
                 Age = 18
             };
 
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Insert("dbo", "Person")
                 .AddColumns(person)
                 .AddColumn("Address")
@@ -82,7 +88,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
                 Age = 18
             };
 
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Update("dbo", "Person")
                 .AddColumns(person)
                 .RemoveColumn(nameof(person.PersonId))
@@ -105,7 +111,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
                 Age = 18
             };
 
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Update("Person")
                 .AddColumns(person)
                 .AddColumn("Address")
@@ -125,7 +131,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
         [Fact(DisplayName = "SqlBuilder - Delete - Valid")]
         public void SqlBuilder_Delete_Valid()
         {
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Delete("dbo", "Person")
                 .Where()
                 .AddColumn("PersonId")
@@ -140,7 +146,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
         [Fact(DisplayName = "SqlBuilder - DeleteWithoutSchema - Valid")]
         public void SqlBuilder_DeleteWithoutSchema_Valid()
         {
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Delete("Person")
                 .Where()
                 .AddColumn("PersonId")
@@ -155,7 +161,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
         [Fact(DisplayName = "SqlBuilder - Select - Valid")]
         public void SqlBuilder_Select_Valid()
         {
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Select("dbo", "Person")
                 .AddColumns("PersonId", "Name")
                 .Where()
@@ -171,7 +177,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
         [Fact(DisplayName = "SqlBuilder - SelectAsterisk - Valid")]
         public void SqlBuilder_SelectAsterisk_Valid()
         {
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Select("Person")
                 .Where()
                 .AddColumn("PersonId")
@@ -193,7 +199,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
                 Age = 18
             };
 
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Select("dbo", "Person")
                 .AddColumns(person)
                 .AddColumn("Address")
@@ -221,7 +227,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
                 Age = 18
             };
 
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Select("Person")
                 .AddColumns(person)
                 .AddColumn("Address")
@@ -259,7 +265,7 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
                 }
             };
 
-            string sql = new SqlServer.SqlBuilder()
+            string sql = new SqlBuilder()
                 .Select("dbo", "Person")
                 .AddColumns(person)
                 .Where()
@@ -269,6 +275,37 @@ namespace Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder.Tests
             string expected = "select [AreaCode], [PhoneNumber], [PersonId], [Name], [Age] from [dbo].[Person] where [PersonId] = @PersonId;";
 
             Assert.Equal(expected, sql);
+        }
+
+        [Fact(DisplayName = "SqlBuilder - Providers - Valid")]
+        public void SqlBuilder_Providers_Valid()
+        {
+            SqlBuilderConfiguration.AddQueryBuilder("SqlServer");
+            SqlBuilderConfiguration.AddQueryBuilder("Test");
+
+            string sqlDefault = new SqlBuilder()
+                .Select("Person")
+                .Where()
+                .AddColumn("PersonId")
+                .AddCondition("and [Age] > @Age")
+                .Build();
+
+            string sqlSqlServer = new SqlBuilder("SqlServer")
+                .Select("Person")
+                .Where()
+                .AddColumn("PersonId")
+                .AddCondition("and [Age] > @Age")
+                .Build();
+
+            string sqlTest = new SqlBuilder("Test")
+                .Select("Person")
+                .Where()
+                .AddColumn("PersonId")
+                .AddCondition("and [Age] > @Age")
+                .Build();
+
+            Assert.Equal(sqlDefault, sqlSqlServer);
+            Assert.Equal(sqlDefault, sqlTest);
         }
     }
 }
