@@ -13,7 +13,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/tolitech/infrastructure.data.querybuilder</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <PackageTags>infrastructure-data-query-builder</PackageTags>
+    <PackageTags>infrastructure;data;query-builder</PackageTags>
     <PackageReleaseNotes>More information at http://www.tolitech.com.br</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
