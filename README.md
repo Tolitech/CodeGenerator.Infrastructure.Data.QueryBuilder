@@ -1,4 +1,4 @@
-# Infrastructure.Data.QueryBuilder
+# Tolitech.CodeGenerator.Infrastructure.Data.QueryBuilder
 Infrastructure Data Query Builder library used in projects created by the Code Generator tool. 
 
 This project contains abstract classes for implementing and customizing query builder database providers. 
